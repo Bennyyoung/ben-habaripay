@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(cat:*)",
+      "WebFetch(domain:email-list-api-3.onrender.com)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(xargs sed:*)",
+      "Bash(npm run dev:*)",
+      "Bash(find:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
