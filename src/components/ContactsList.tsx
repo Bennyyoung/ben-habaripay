@@ -108,7 +108,6 @@ export const ContactsList = React.memo(function ContactsList() {
 
   if (isError) {
     return (
-      <ErrorBoundary>
         <Card className="border border-red-200 bg-red-50">
           <CardContent className="p-6">
             <div className="text-center" role="alert">
@@ -134,7 +133,6 @@ export const ContactsList = React.memo(function ContactsList() {
             </div>
           </CardContent>
         </Card>
-      </ErrorBoundary>
     );
   }
 

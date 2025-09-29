@@ -5,7 +5,6 @@ import { Header } from './Header';
 import { MetricCard } from './MetricCard';
 import { BudgetPlatform } from './BudgetPlatform';
 import { TimeFilter } from './TimeFilter';
-import { ErrorBoundary } from './ErrorBoundary';
 import { 
   LazyAcquisitionChart, 
   LazyTrafficSourceChart, 
@@ -84,16 +83,13 @@ export function Dashboard() {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <ErrorBoundary>
         <Sidebar />
-      </ErrorBoundary>
       
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <ErrorBoundary>
+
           <Header />
-        </ErrorBoundary>
         
         {/* Dashboard Content */}
         <main className="flex-1 overflow-auto" role="main">
@@ -108,38 +104,33 @@ export function Dashboard() {
             </div>
 
             {/* Metrics Grid */}
-            <ErrorBoundary>
+    
               <MemoizedMetricCards />
-            </ErrorBoundary>
 
             {/* Charts Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
-              <ErrorBoundary>
+      
                 <SuspenseChart>
                   <LazyAcquisitionChart />
                 </SuspenseChart>
-              </ErrorBoundary>
-              <ErrorBoundary>
+      
                 <SuspenseChart>
                   <LazyTrafficSourceChart />
                 </SuspenseChart>
-              </ErrorBoundary>
             </div>
 
             {/* Budget Platform */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
-              <ErrorBoundary>
+      
                 <BudgetPlatform />
-              </ErrorBoundary>
               <div className="hidden lg:block"></div> {/* Empty space to maintain grid layout */}
             </div>
 
             {/* Contacts List */}
-            <ErrorBoundary>
+    
               <SuspenseContactsList>
                 <LazyContactsList />
               </SuspenseContactsList>
-            </ErrorBoundary>
           </div>
         </main>
       </div>
