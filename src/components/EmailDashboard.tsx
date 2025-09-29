@@ -17,17 +17,19 @@ export function EmailDashboard() {
       contentWrapperClass=""
       mainClass="flex-1 overflow-hidden"
     >
-      <div className='flex'>
+      <div className='flex h-full'>
         <EmailSidebar
           selectedFolder={selectedFolder}
           onFolderSelect={setSelectedFolder}
         />
-        <EmailList
-          selectedFolder={selectedFolder}
-          searchQuery={searchQuery}
-          selectedEmail={selectedEmail}
-          onEmailSelect={setSelectedEmail}
-        />
+        <div className="flex-1 flex flex-col min-w-0">
+          <EmailList
+            selectedFolder={selectedFolder}
+            searchQuery={searchQuery}
+            selectedEmail={selectedEmail}
+            onEmailSelect={setSelectedEmail}
+          />
+        </div>
       </div>
     </Layout>
   );
