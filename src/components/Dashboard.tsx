@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { DollarSign, Users, Target, TrendingUp } from 'lucide-react';
+import { Layout } from './Layout';
 import { Sidebar } from './Sidebar';
-import { Header } from './Header';
 import { MetricCard } from './MetricCard';
 import { BudgetPlatform } from './BudgetPlatform';
 import { TimeFilter } from './TimeFilter';
-import { 
-  LazyAcquisitionChart, 
-  LazyTrafficSourceChart, 
+import {
+  LazyAcquisitionChart,
+  LazyTrafficSourceChart,
   LazyContactsList,
   SuspenseChart,
   SuspenseContactsList
@@ -81,59 +81,40 @@ const MemoizedMetricCards = React.memo(function MemoizedMetricCards() {
 
 export function Dashboard() {
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
-        <Sidebar />
-      
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Header */}
-
-          <Header />
-        
-        {/* Dashboard Content */}
-        <main className="flex-1 overflow-auto" role="main">
-          <div className="p-4 sm:p-6 max-w-7xl mx-auto">
-            {/* Page Title and Filters */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Marketing Dashboard</h1>
-                <p className="text-sm text-gray-600 mt-1">Monitor your marketing performance and metrics</p>
-              </div>
-              <TimeFilter />
-            </div>
-
-            {/* Metrics Grid */}
-    
-              <MemoizedMetricCards />
-
-            {/* Charts Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
-      
-                <SuspenseChart>
-                  <LazyAcquisitionChart />
-                </SuspenseChart>
-      
-                <SuspenseChart>
-                  <LazyTrafficSourceChart />
-                </SuspenseChart>
-            </div>
-
-            {/* Budget Platform */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
-      
-                <BudgetPlatform />
-              <div className="hidden lg:block"></div> {/* Empty space to maintain grid layout */}
-            </div>
-
-            {/* Contacts List */}
-    
-              <SuspenseContactsList>
-                <LazyContactsList />
-              </SuspenseContactsList>
-          </div>
-        </main>
+    <Layout
+      sidebar={<Sidebar />}
+      title="Marketing Dashboard"
+      description="Monitor your marketing performance and metrics"
+    >
+      {/* Page Filters */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-4 mb-6">
+        <TimeFilter />
       </div>
-    </div>
+
+      {/* Metrics Grid */}
+      <MemoizedMetricCards />
+
+      {/* Charts Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
+        <SuspenseChart>
+          <LazyAcquisitionChart />
+        </SuspenseChart>
+
+        <SuspenseChart>
+          <LazyTrafficSourceChart />
+        </SuspenseChart>
+      </div>
+
+      {/* Budget Platform */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
+        <BudgetPlatform />
+        <div className="hidden lg:block"></div> {/* Empty space to maintain grid layout */}
+      </div>
+
+      {/* Contacts List */}
+      <SuspenseContactsList>
+        <LazyContactsList />
+      </SuspenseContactsList>
+    </Layout>
   );
 }

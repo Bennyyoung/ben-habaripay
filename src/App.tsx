@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './components/AuthContext'
 import { LoginForm } from './components/LoginForm'
 import { Dashboard } from './components/Dashboard'
+import { EmailDashboard } from './components/EmailDashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 
 const queryClient = new QueryClient({
@@ -27,6 +28,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/email"
+              element={
+                <ProtectedRoute>
+                  <EmailDashboard />
                 </ProtectedRoute>
               }
             />

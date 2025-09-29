@@ -1,17 +1,7 @@
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Card, CardContent } from './ui/card';
-import { 
-  BarChart3, 
-  Building2, 
-  FolderOpen, 
-  Users, 
-  Smartphone, 
-  Languages, 
-  Puzzle, 
-  FileText, 
-  Zap,
-  Calendar,
+import {
   Mail,
   Star,
   Send,
@@ -23,30 +13,13 @@ import {
   UserCheck,
   Building,
   Crown,
-  User
+  Edit3
 } from 'lucide-react';
 
 interface EmailSidebarProps {
   selectedFolder: string;
   onFolderSelect: (folder: string) => void;
 }
-
-const navigationItems = [
-  { id: 'analytics', label: 'Analytics', icon: BarChart3 },
-  { id: 'business', label: 'Business', icon: Building2 },
-  { id: 'project', label: 'Project', icon: FolderOpen },
-  { id: 'hrm', label: 'HRM', icon: Users },
-  { id: 'mobile', label: 'Mobile App', icon: Smartphone },
-  { id: 'language', label: 'Language', icon: Languages },
-  { id: 'components', label: 'Components', icon: Puzzle },
-  { id: 'pages', label: 'Pages', icon: FileText },
-  { id: 'apps', label: 'Apps', icon: Zap },
-  { id: 'calendar', label: 'Calendar', icon: Calendar, isSubItem: true },
-  { id: 'email', label: 'Email', icon: Mail, isSubItem: true, isActive: true },
-  { id: 'content', label: 'Content', icon: FileText },
-  { id: 'users', label: 'Users', icon: User },
-  { id: 'documentation', label: 'Documentation', icon: FileText }
-];
 
 const emailFolders = [
   { id: 'inbox', label: 'Inbox', icon: Mail, count: 24 },
@@ -67,28 +40,6 @@ const labels = [
 export function EmailSidebar({ selectedFolder, onFolderSelect }: EmailSidebarProps) {
   return (
     <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
-      {/* Navigation Section */}
-      <div className="p-4 border-b border-gray-100">
-        <nav className="space-y-1">
-          {navigationItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button
-                key={item.id}
-                className={`w-full flex items-center gap-3 px-3 py-2 text-sm rounded-md transition-colors ${
-                  item.isActive 
-                    ? 'bg-blue-50 text-blue-700 font-medium' 
-                    : 'text-gray-700 hover:bg-gray-50'
-                } ${item.isSubItem ? 'ml-6' : ''}`}
-              >
-                <Icon size={16} />
-                {item.label}
-              </button>
-            );
-          })}
-        </nav>
-      </div>
-
       {/* User Profile Section */}
       <div className="p-4 border-b border-gray-100">
         <div className="flex items-center gap-3 mb-4">
@@ -100,13 +51,14 @@ export function EmailSidebar({ selectedFolder, onFolderSelect }: EmailSidebarPro
             <div className="text-xs text-gray-500">Web developer</div>
           </div>
         </div>
-        
-        <Button 
+
+        <Button
           className="w-full bg-green-100 text-green-700 hover:bg-green-200 border-green-200"
           variant="outline"
           size="sm"
         >
-          ✏️ Compose
+          <Edit3 size={16} className="mr-2" />
+          Compose
         </Button>
       </div>
 

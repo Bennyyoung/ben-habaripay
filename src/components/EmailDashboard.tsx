@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Layout } from './Layout';
 import { EmailSidebar } from './EmailSidebar';
-import { EmailHeader } from './EmailHeader';
 import { EmailList } from './EmailList';
 
 export function EmailDashboard() {
@@ -9,27 +9,27 @@ export function EmailDashboard() {
   const [selectedFolder, setSelectedFolder] = useState('inbox');
 
   return (
-    <div className="flex h-screen bg-gray-50">
-        <EmailSidebar 
+    <Layout
+      title="Email Dashboard"
+      description="Manage your emails and communication"
+      showPageHeader={false}
+      contentWrapperClass=""
+      mainClass="flex-1 overflow-hidden"
+    >
+      <div className="flex h-full">
+        <EmailSidebar
           selectedFolder={selectedFolder}
           onFolderSelect={setSelectedFolder}
         />
-      
-      <div className="flex-1 flex flex-col min-w-0">
-          <EmailHeader 
+        <div className="flex-1 flex flex-col min-w-0">
+          <EmailList
+            selectedFolder={selectedFolder}
             searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
+            selectedEmail={selectedEmail}
+            onEmailSelect={setSelectedEmail}
           />
-        
-        <main className="flex-1 overflow-hidden">
-            <EmailList 
-              selectedFolder={selectedFolder}
-              searchQuery={searchQuery}
-              selectedEmail={selectedEmail}
-              onEmailSelect={setSelectedEmail}
-            />
-        </main>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
