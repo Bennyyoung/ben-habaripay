@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { Layout, useLayout } from './Layout';
+import { Layout } from './Layout';
 import { EmailSidebar } from './EmailSidebar';
-import { EmailHeader } from './EmailHeader';
 import { EmailList } from './EmailList';
 import { Menu } from 'lucide-react';
 import { Button } from './ui/button';
 
 export function EmailDashboard() {
   const [selectedEmail, setSelectedEmail] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery] = useState('');
   const [selectedFolder, setSelectedFolder] = useState('inbox');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 

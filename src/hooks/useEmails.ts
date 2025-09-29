@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { emailApi, type EmailApiParams } from '../services/emailApi'
+// import { emailApi, type EmailApiParams } from '../services/emailApi'
 import type { Email } from '../types/email'
+import { emailApi, type EmailApiParams } from '../services/emailApi'
 
 export const useEmails = (params: EmailApiParams) => {
   return useQuery({
