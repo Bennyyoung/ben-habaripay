@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Layout } from './Layout';
 import { EmailSidebar } from './EmailSidebar';
+import { EmailHeader } from './EmailHeader';
 import { EmailList } from './EmailList';
 
 export function EmailDashboard() {
@@ -16,19 +17,17 @@ export function EmailDashboard() {
       contentWrapperClass=""
       mainClass="flex-1 overflow-hidden"
     >
-      <div className="flex h-full">
+      <div className='flex'>
         <EmailSidebar
           selectedFolder={selectedFolder}
           onFolderSelect={setSelectedFolder}
         />
-        <div className="flex-1 flex flex-col min-w-0">
-          <EmailList
-            selectedFolder={selectedFolder}
-            searchQuery={searchQuery}
-            selectedEmail={selectedEmail}
-            onEmailSelect={setSelectedEmail}
-          />
-        </div>
+        <EmailList
+          selectedFolder={selectedFolder}
+          searchQuery={searchQuery}
+          selectedEmail={selectedEmail}
+          onEmailSelect={setSelectedEmail}
+        />
       </div>
     </Layout>
   );
