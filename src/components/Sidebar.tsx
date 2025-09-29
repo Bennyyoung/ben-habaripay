@@ -18,9 +18,11 @@ import {
   Mail,
   FileSpreadsheet,
   PieChart,
-  Layout
+  Layout,
+  X
 } from 'lucide-react';
 import { Button } from './ui/button';
+import { useLayout } from './Layout';
 
 const navigationItems = [
   { icon: Megaphone, label: 'Marketing', active: true },
@@ -52,6 +54,7 @@ const navigationItems = [
 export function Sidebar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { setIsMobileMenuOpen } = useLayout();
 
   const toggleDropdown = (label: string) => {
     setOpenDropdown(openDropdown === label ? null : label);
@@ -61,6 +64,8 @@ export function Sidebar() {
     if (subItemLabel === 'Email') {
       navigate('/email');
     }
+    // Close mobile menu when navigating
+    setIsMobileMenuOpen(false);
     // Add more navigation cases here for other subItems if needed
   };
 
@@ -68,18 +73,31 @@ export function Sidebar() {
     if (label === 'Marketing') {
       navigate('/');
     }
+    // Close mobile menu when navigating
+    setIsMobileMenuOpen(false);
     // Add more navigation cases here for other main items if needed
   };
 
   return (
-    <div className="w-64 bg-white border-r border-gray-200 h-full flex flex-col">
-      {/* Logo */}
+    <div className="w-64 bg-white border-r border-gray-200 h-screen flex flex-col">
+      {/* Logo and Close Button */}
       <div className="p-4 border-b border-gray-200">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-green-500 rounded flex items-center justify-center">
-            <span className="text-white font-bold">B</span>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-green-500 rounded flex items-center justify-center">
+              <span className="text-white font-bold text-sm">B</span>
+            </div>
+            <span className="font-semibold text-sm sm:text-base">Brutalism</span>
           </div>
-          <span className="font-semibold">Brutalism</span>
+          {/* Mobile Close Button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <X size={20} />
+          </Button>
         </div>
       </div>
 
@@ -96,12 +114,12 @@ export function Sidebar() {
                     handleMainItemClick(item.label);
                   }
                 }}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left hover:bg-gray-100 transition-colors ${
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-100 transition-colors ${
                   item.active ? 'bg-green-50 text-green-700 border border-green-200' : 'text-gray-700'
                 }`}
               >
-                <item.icon size={18} />
-                <span className="flex-1">{item.label}</span>
+                <item.icon size={18} className="flex-shrink-0" />
+                <span className="flex-1 text-sm sm:text-base">{item.label}</span>
                 {item.hasDropdown && (
                   <ChevronDown
                     size={16}
@@ -121,8 +139,8 @@ export function Sidebar() {
                       onClick={() => handleSubItemClick(subItem.label)}
                       className="w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-left hover:bg-gray-100 transition-colors text-gray-600"
                     >
-                      <subItem.icon size={16} />
-                      <span>{subItem.label}</span>
+                      <subItem.icon size={16} className="flex-shrink-0" />
+                      <span className="text-sm">{subItem.label}</span>
                     </button>
                   ))}
                 </div>
@@ -134,15 +152,15 @@ export function Sidebar() {
 
       {/* Upgrade Section */}
       <div className="p-4 border-t border-gray-200">
-        <div className="bg-gray-50 rounded-lg p-4">
+        <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
           <div className="flex items-center gap-2 mb-2">
-            <Crown size={20} className="text-yellow-500" />
-            <span className="font-semibold">Upgrade to Pro</span>
+            <Crown size={18} className="text-yellow-500 flex-shrink-0" />
+            <span className="font-semibold text-sm sm:text-base">Upgrade to Pro</span>
           </div>
-          <p className="text-sm text-gray-600 mb-3">
+          <p className="text-xs sm:text-sm text-gray-600 mb-3">
             Are you looking for more features? Check out our Pro version.
           </p>
-          <Button className="w-full bg-green-500 hover:bg-green-600">
+          <Button className="w-full bg-green-500 hover:bg-green-600 text-sm" size="sm">
             Upgrade Now
           </Button>
         </div>

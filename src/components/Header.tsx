@@ -9,36 +9,47 @@ export function Header() {
   const { user, signOut } = useAuth();
 
   return (
-    <div className="bg-white border-b border-gray-200 px-6 py-4">
+    <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4">
       <div className="flex items-center justify-between">
-        {/* Search */}
-        <div className="flex-1 max-w-md">
-          <div className="relative">
+        {/* Search - Hidden on mobile, visible on larger screens */}
+        <div className="hidden sm:flex flex-1 max-w-md">
+          <div className="relative w-full">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-            <Input 
-              placeholder="Search..." 
-              className="pl-10 bg-gray-50 border-gray-200"
+            <Input
+              placeholder="Search..."
+              className="pl-10 bg-gray-50 border-gray-200 w-full"
             />
           </div>
         </div>
 
+        {/* Mobile Search Button - Visible only on mobile */}
+        <div className="sm:hidden">
+          <Button variant="ghost" size="icon">
+            <Search size={20} className="text-gray-600" />
+          </Button>
+        </div>
+
         {/* Actions */}
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="relative">
+        <div className="flex items-center gap-1 sm:gap-2 ml-auto">
+          {/* Settings - Hidden on mobile */}
+          <Button variant="ghost" size="icon" className="relative hidden sm:flex">
             <Settings size={20} className="text-gray-600" />
           </Button>
-          
-          <Button variant="ghost" size="icon" className="relative">
+
+          {/* Messages - Hidden on mobile */}
+          <Button variant="ghost" size="icon" className="relative hidden sm:flex">
             <MessageSquare size={20} className="text-gray-600" />
           </Button>
-          
+
+          {/* Notifications - Always visible */}
           <Button variant="ghost" size="icon" className="relative">
             <Bell size={20} className="text-gray-600" />
             <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-xs p-0 flex items-center justify-center">
               1
             </Badge>
           </Button>
-          
+
+          {/* User Menu - Always visible */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="relative">
