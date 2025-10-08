@@ -113,7 +113,7 @@ class ApiClient {
       queryParams.append('isSubscribed', params.isSubscribed.toString());
     }
 
-    const query = queryParams.toString();
+    // const query = queryParams.toString();
     const endpoint = `/api/emails`;
 
     return this.request<ApiResponse<EmailContact>>(endpoint);
