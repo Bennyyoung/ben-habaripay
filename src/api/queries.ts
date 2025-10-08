@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
-import { apiClient, type EmailContact } from './client';
+import { apiClient, type EmailContact } from "../components/api/client";
 
 // Query keys for consistent caching
 export const queryKeys = {
