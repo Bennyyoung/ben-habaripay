@@ -32,22 +32,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Check for existing token on mount
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    if (token) {
-      // In a real app, you'd validate the token with the server
-      setUser({
-        id: '1',
-        name: 'Demo User',
-        email: 'demo@brutalism.com',
-      });
+    const userData = localStorage.getItem('userData');
+    if (token && userData) {
+      try {
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        // Clear invalid user data
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userData');
+      }
     }
     setIsLoading(false);
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {
     setIsLoading(true);
-    
+
     try {
       const { user: userData } = await apiClient.login(email, password);
+      localStorage.setItem('userData', JSON.stringify(userData));
       setUser(userData);
     } catch (error) {
       throw error;
@@ -58,6 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = useCallback(() => {
     apiClient.logout();
+    localStorage.removeItem('userData');
     setUser(null);
   }, []);
 

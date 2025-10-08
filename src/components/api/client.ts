@@ -1,5 +1,5 @@
 // API client configuration
-const API_BASE_URL = 'https://email-list-api-3.onrender.com';
+const API_BASE_URL = '';
 
 export interface EmailContact {
   id: string;
@@ -114,54 +114,64 @@ class ApiClient {
     }
 
     const query = queryParams.toString();
-    const endpoint = `/contacts${query ? `?${query}` : ''}`;
-    
+    const endpoint = `/api/emails${query ? `?${query}` : ''}`;
+
     return this.request<ApiResponse<EmailContact>>(endpoint);
   }
 
   async getContact(id: string): Promise<EmailContact> {
-    return this.request<EmailContact>(`/contacts/${id}`);
+    return this.request<EmailContact>(`/api/emails/${id}`);
   }
 
   async createContact(contact: Partial<EmailContact>): Promise<EmailContact> {
-    return this.request<EmailContact>('/contacts', {
+    return this.request<EmailContact>('/api/emails', {
       method: 'POST',
       body: JSON.stringify(contact),
     });
   }
 
   async updateContact(id: string, contact: Partial<EmailContact>): Promise<EmailContact> {
-    return this.request<EmailContact>(`/contacts/${id}`, {
+    return this.request<EmailContact>(`/api/emails/${id}`, {
       method: 'PUT',
       body: JSON.stringify(contact),
     });
   }
 
   async deleteContact(id: string): Promise<void> {
-    return this.request<void>(`/contacts/${id}`, {
+    return this.request<void>(`/api/emails/${id}`, {
       method: 'DELETE',
     });
   }
 
-  // Authentication endpoints (mock implementation)
+  // Authentication endpoints
   async login(email: string, password: string): Promise<{ token: string; user: any }> {
-    // Mock authentication - in a real app this would call the API
-    if (email === 'demo@brutalism.com' && password === 'demo123') {
-      const mockToken = 'mock-jwt-token-' + Date.now();
-      const user = {
-        id: '1',
-        name: 'Demo User',
-        email: 'demo@brutalism.com',
-      };
-      
-      this.setToken(mockToken);
-      return { token: mockToken, user };
+    try {
+      const response = await this.request<{ token: string; user: any }>('/api/auth', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      });
+
+      this.setToken(response.token);
+      return response;
+    } catch (error) {
+      // Fallback to mock authentication for demo credentials
+      if (email === 'demo@brutalism.com' && password === 'demo123') {
+        const mockToken = 'mock-jwt-token-' + Date.now();
+        const user = {
+          id: '1',
+          name: 'Demo User',
+          email: 'demo@brutalism.com',
+        };
+
+        this.setToken(mockToken);
+        return { token: mockToken, user };
+      }
+
+      throw new ApiError({
+        message: 'Invalid credentials',
+        status: 401,
+      });
     }
-    
-    throw new ApiError({
-      message: 'Invalid credentials',
-      status: 401,
-    });
   }
 
   logout() {

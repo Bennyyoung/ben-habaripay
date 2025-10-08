@@ -8,7 +8,7 @@ export interface EmailApiParams extends PaginationParams {
 }
 
 // Real API base URL
-const API_BASE_URL = 'https://email-list-api-3.onrender.com'
+const API_BASE_URL = 'http://email-list-api-3.onrender.com'
 
 // Create axios instance
 const api = axios.create({
@@ -43,15 +43,24 @@ api.interceptors.response.use(
 )
 
 export const emailApi = {
-  // Authenticate user
+  // Authenticate user (mock only - no API call)
   async login(email: string, password: string): Promise<{ token: string; user: any }> {
-    try {
-      const response = await api.post('/api/auth', { email, password })
-      return response.data
-    } catch (error) {
-      console.error('Authentication failed:', error)
-      throw error
+    // Mock authentication for demo
+    if (email === 'demo@brutalism.com' && password === 'demo123') {
+      const mockToken = 'mock-jwt-token-' + Date.now()
+      const user = {
+        id: '1',
+        name: 'Demo User',
+        email: 'demo@brutalism.com',
+      }
+
+      localStorage.setItem('authToken', mockToken)
+      localStorage.setItem('userData', JSON.stringify(user))
+
+      return { token: mockToken, user }
     }
+
+    throw new Error('Invalid credentials')
   },
 
   // Get emails with pagination and filters

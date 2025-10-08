@@ -13,7 +13,7 @@ A modern marketing analytics dashboard built with React, TypeScript, and Tailwin
 
 ## API Integration
 
-The application integrates with the email list API at `https://email-list-api-3.onrender.com` for contact management.
+The application integrates with the email list API at `http://email-list-api-3.onrender.com` for contact management.
 
 ### Data Fetching Strategy
 
