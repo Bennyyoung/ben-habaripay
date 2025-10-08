@@ -9,8 +9,8 @@ import { Loader2, Eye, EyeOff } from 'lucide-react';
 
 export function LoginForm() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('sarah.johnson@techcorp.com');
-  const [password, setPassword] = useState('SecurePass123!');
+  const [email, setEmail] = useState('demo@brutalism.com');
+  const [password, setPassword] = useState('demo123');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const { signIn, isLoading } = useAuth();
@@ -116,8 +116,8 @@ export function LoginForm() {
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-xs font-medium text-blue-800 mb-2">Demo Account</p>
             <div className="text-xs text-blue-700 space-y-1">
-              <p><strong>Email:</strong> sarah.johnson@techcorp.com</p>
-              <p><strong>Password:</strong> SecurePass123!</p>
+              <p><strong>Email:</strong> demo@brutalism.com</p>
+              <p><strong>Password:</strong> demo123</p>
             </div>
             <p className="text-xs text-blue-600 mt-2">
               Credentials are pre-filled for easy access

@@ -114,7 +114,7 @@ class ApiClient {
     }
 
     const query = queryParams.toString();
-    const endpoint = `/api/emails${query ? `?${query}` : ''}`;
+    const endpoint = `/api/emails`;
 
     return this.request<ApiResponse<EmailContact>>(endpoint);
   }
